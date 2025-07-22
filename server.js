@@ -1,13 +1,25 @@
-// server.js
 const express = require("express");
 const nodemailer = require("nodemailer");
 const cors = require("cors");
 require("dotenv").config();
 
 const app = express();
-app.use(cors());
+
+// ✅ CORS for local and production
+app.use(cors({
+  origin: [
+    "http://localhost:3000",
+    "https://syncmeet-six.vercel.app"
+  ],
+  methods: ["POST"],
+  allowedHeaders: ["Content-Type"]
+}));
+
 app.use(express.json());
-app.use(cors());
+
+app.get("/", (req, res) => {
+  res.status(200).send("🟢 Skill Sync API is running.");
+});
 
 
 app.post("/send-email", async (req, res) => {
@@ -159,5 +171,5 @@ app.post("/send-scheduleemail", async (req, res) => {
 
 
 
-module.exports = app;
-
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
