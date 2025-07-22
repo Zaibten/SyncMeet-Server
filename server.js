@@ -9,19 +9,6 @@ app.use(cors());
 app.use(express.json());
 app.use(cors());
 
-const allowedOrigins = [
-  "http://localhost:3000",          // for local dev
-  "https://syncmeet-six.vercel.app" // replace with actual Vercel frontend domain
-];
-
-app.use(
-  cors({
-    origin: allowedOrigins,
-    methods: ["GET", "POST"],
-    allowedHeaders: ["Content-Type"],
-  })
-);
-
 
 app.post("/send-email", async (req, res) => {
   let { title, description, time, emails } = req.body;
